@@ -1,6 +1,6 @@
 --- a/chrome/browser/media/router/media_router_feature.cc	2017-10-11 15:10:22.000000000 -0400
 +++ b/chrome/browser/media/router/media_router_feature.cc	2017-10-15 10:01:55.341432773 -0400
-@@ -11,29 +11,27 @@
+@@ -11,22 +11,19 @@
  #include "extensions/features/features.h"
  #include "ui/base/ui_features.h"
  
@@ -13,7 +13,6 @@
  namespace media_router {
  
 -#if !defined(OS_ANDROID)
-+
  // Controls if browser side DIAL sink query is enabled.
  const base::Feature kEnableDialSinkQuery{"EnableDialSinkQuery",
                                           base::FEATURE_DISABLED_BY_DEFAULT};
@@ -23,30 +22,30 @@
 -                                         base::FEATURE_ENABLED_BY_DEFAULT};
 +                                         base::FEATURE_DISABLED_BY_DEFAULT};
  
+ const base::Feature kCastMediaRouteProvider{"CastMediaRouteProvider",
+                                             base::FEATURE_DISABLED_BY_DEFAULT};
+@@ -34,9 +31,6 @@
  // Controls if local media casting is enabled.
  const base::Feature kEnableCastLocalMedia{"EnableCastLocalMedia",
                                            base::FEATURE_DISABLED_BY_DEFAULT};
 -#endif
- 
+-
 -#if defined(OS_ANDROID) || BUILDFLAG(ENABLE_EXTENSIONS)
-+
-+
  namespace {
  const PrefService::Preference* GetMediaRouterPref(
      content::BrowserContext* context) {
-@@ -41,10 +39,9 @@
+@@ -44,10 +38,8 @@
        prefs::kEnableMediaRouter);
  }
  }  // namespace
 -#endif  // defined(OS_ANDROID) || BUILDFLAG(ENABLE_EXTENSIONS)
-+
  
  bool MediaRouterEnabled(content::BrowserContext* context) {
 -#if defined(OS_ANDROID) || BUILDFLAG(ENABLE_EXTENSIONS)
    const PrefService::Preference* pref = GetMediaRouterPref(context);
    // Only use the pref value if it set from a mandatory policy.
    if (pref->IsManaged() && !pref->IsDefaultValue()) {
-@@ -55,13 +52,10 @@
+@@ -58,13 +50,9 @@
  
    // The component extension cannot be loaded in guest sessions.
    // TODO(crbug.com/756243): Figure out why.
@@ -57,11 +56,10 @@
  }
  
 -#if !defined(OS_ANDROID)
-+
  // Returns true if browser side DIAL sink query is enabled.
  bool DialSinkQueryEnabled() {
    return base::FeatureList::IsEnabled(kEnableDialSinkQuery);
-@@ -80,12 +74,7 @@
+@@ -87,12 +75,7 @@
  // Returns true if the presentation receiver window for local media casting is
  // available on the current platform.
  bool PresentationReceiverWindowEnabled() {
