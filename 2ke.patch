@@ -2,26 +2,18 @@
 06:05:36.000000000 -0400
 +++ b/components/safe_browsing/features.cc.new	2018-05-08 
 14:32:50.539706732 -0400
-@@ -40,7 +40,7 @@
-     base::FEATURE_DISABLED_BY_DEFAULT};
- 
- const base::Feature kEnterprisePasswordProtectionV1{
--    "EnterprisePasswordProtectionV1", base::FEATURE_ENABLED_BY_DEFAULT};
-+    "EnterprisePasswordProtectionV1", base::FEATURE_DISABLED_BY_DEFAULT};
- 
- const base::Feature kForceEnableResetPasswordWebUI{
-     "ForceEnableResetPasswordWebUI", base::FEATURE_DISABLED_BY_DEFAULT};
-@@ -68,12 +68,12 @@
+@@ -65,12 +65,12 @@
    bool probabilistically_enabled;
  } kExperimentalFeatures[]{
      {&kAdSamplerTriggerFeature, false},
 -    {&kAdvancedProtectionStatusFeature, true},
-+    {&kAdvancedProtectionStatusFeature, false},
-     {&kBillingInterstitial, false},
+-    {&kBillingInterstitial, true},
 -    {&kCheckByURLLoaderThrottle, true},
 -    {&kForceEnableResetPasswordWebUI, true},
 -    {&kInspectDownloadedRarFiles, true},
 -    {&kSuspiciousSiteTriggerQuotaFeature, true},
++    {&kAdvancedProtectionStatusFeature, false},
++    {&kBillingInterstitial, false},
 +    {&kCheckByURLLoaderThrottle, false},
 +    {&kForceEnableResetPasswordWebUI, false},
 +    {&kInspectDownloadedRarFiles, false},
